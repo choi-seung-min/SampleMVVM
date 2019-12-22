@@ -1,18 +1,22 @@
 package com.example.samplemvvm
 
-import androidx.databinding.ObservableField
+import android.util.Log
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 
-class MainViewModel{
-    val firstNum = ObservableField<String>()
-    val secondNum = ObservableField<String>()
-    val res = ObservableField<String>()
+class MainViewModel: ViewModel(){
+    val firstNum = MutableLiveData<String>()
+    val secondNum = MutableLiveData<String>()
+    val res = MutableLiveData<String>()
     fun calc(op: Char) {
-        res.set(when (op){
-            '+' -> (firstNum.get()!!.toInt() + secondNum.get()!!.toInt()).toString()
-            '-' -> (firstNum.get()!!.toInt() - secondNum.get()!!.toInt()).toString()
-            '*' -> (firstNum.get()!!.toInt() * secondNum.get()!!.toInt()).toString()
-            '/' -> (firstNum.get()!!.toInt() / secondNum.get()!!.toInt()).toString()
+        Log.d("MainViewModel", "${firstNum.value}, ${secondNum.value}")
+        res.value = when (op){
+            '+' -> (firstNum.value!!.toInt() + secondNum.value!!.toInt()).toString()
+            '-' -> (firstNum.value!!.toInt() - secondNum.value!!.toInt()).toString()
+            '*' -> (firstNum.value!!.toInt() * secondNum.value!!.toInt()).toString()
+            '/' -> (firstNum.value!!.toInt() / secondNum.value!!.toInt()).toString()
             else -> ""
-        })
+        }
+        Log.d("MainViewModel", "${res.value}")
     }
 }
